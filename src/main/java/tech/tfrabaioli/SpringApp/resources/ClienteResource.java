@@ -9,21 +9,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import tech.tfrabaioli.SpringApp.domain.Produto;
-import tech.tfrabaioli.SpringApp.services.ProdutoService;
+import tech.tfrabaioli.SpringApp.domain.Cliente;
+import tech.tfrabaioli.SpringApp.services.ClienteService;
 
 @RestController //Controlador Rest
-@RequestMapping(value="/produtos") // Nome do endpoint Rest
-public class ProdutoResource {
+@RequestMapping(value="/clientes") // Nome do endpoint Rest
+public class ClienteResource {
 	
 	@Autowired
-	private ProdutoService service;
+	private ClienteService service;
 	
 	@RequestMapping(value= "/{id}", method = RequestMethod.GET) //verbo HTTP de GET
 	
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		
-		Produto obj = service.find(id);
+		Cliente obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 

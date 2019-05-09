@@ -13,7 +13,7 @@ import tech.tfrabaioli.SpringApp.domain.Categoria;
 import tech.tfrabaioli.SpringApp.services.CategoriaService;
 
 @RestController //Controlador Rest
-@RequestMapping(value="categorias") // Nome do endpoint Rest
+@RequestMapping(value="/categorias") // Nome do endpoint Rest
 public class CategoriaResource {
 	
 	@Autowired
