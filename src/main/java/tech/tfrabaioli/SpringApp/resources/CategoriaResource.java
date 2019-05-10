@@ -3,6 +3,8 @@ package tech.tfrabaioli.SpringApp.resources;
 
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.Servlet;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import tech.tfrabaioli.SpringApp.domain.Categoria;
+import tech.tfrabaioli.SpringApp.dto.CategoriaDTO;
 import tech.tfrabaioli.SpringApp.services.CategoriaService;
 
 @RestController //Controlador Rest
@@ -26,9 +29,7 @@ public class CategoriaResource {
 	private CategoriaService service;
 	
 	@RequestMapping(value= "/{id}", method = RequestMethod.GET) //verbo HTTP de GET
-	
 	public ResponseEntity<Categoria> find(@PathVariable Integer id) {
-		
 		Categoria obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -55,6 +56,15 @@ public class CategoriaResource {
 	public ResponseEntity<Void> delete(@PathVariable Integer id){
 	 service.delete(id);
 	 return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(method = RequestMethod.GET) //verbo HTTP de GET
+	public ResponseEntity<List<CategoriaDTO>> findAll(){
+		List<Categoria> lista = service.findAll();
+		List<CategoriaDTO> listDto = lista.stream()
+				.map(obj -> new CategoriaDTO(obj))
+				.collect(Collectors.toList());  
+		return ResponseEntity.ok().body(listDto);
 	}
 
 }
