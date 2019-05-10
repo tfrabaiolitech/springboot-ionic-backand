@@ -1,4 +1,4 @@
-package tech.tfrabaioli.SpringApp.resources.exceptions;
+package tech.tfrabaioli.SpringApp.services.exceptions;
 
 
 public class ObjectNotFoundException extends RuntimeException {
