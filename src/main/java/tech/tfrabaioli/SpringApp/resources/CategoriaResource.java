@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.Servlet;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,7 +38,8 @@ public class CategoriaResource {
 	}
 	//Padrão do framework 
 @RequestMapping(method = RequestMethod.POST)	
-  public ResponseEntity<Void> insert (@RequestBody Categoria obj){
+  public ResponseEntity<Void> insert (@Valid @RequestBody CategoriaDTO objDto){
+	Categoria obj =service.fromDTO(objDto);
 	  obj = service.insert(obj);
 	  URI uri = ServletUriComponentsBuilder 
 			  .fromCurrentRequest() // Pega a url por exemplo localhost:8080/categorias
@@ -48,7 +50,8 @@ public class CategoriaResource {
   }
 
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id) {
+		Categoria obj = service.fromDTO(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
