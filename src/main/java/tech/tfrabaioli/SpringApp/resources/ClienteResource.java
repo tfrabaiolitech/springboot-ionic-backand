@@ -21,7 +21,7 @@ public class ClienteResource {
 	
 	@RequestMapping(value= "/{id}", method = RequestMethod.GET) //verbo HTTP de GET
 	
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<Cliente> find(@PathVariable Integer id) {
 		
 		Cliente obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
