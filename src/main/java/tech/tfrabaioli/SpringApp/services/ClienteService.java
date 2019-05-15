@@ -25,7 +25,7 @@ import tech.tfrabaioli.SpringApp.repositories.ClienteRepository;
 import tech.tfrabaioli.SpringApp.repositories.EnderecoRepository;
 import tech.tfrabaioli.SpringApp.services.exceptions.DataIntegrityException;
 import tech.tfrabaioli.SpringApp.services.exceptions.ObjectNotFoundException;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @Service
@@ -37,7 +37,9 @@ public class ClienteService {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 	
-	
+	@Autowired
+	private BCryptPasswordEncoder pe;
+
 	
 	public Cliente find(Integer id) {
 		Optional<Cliente> obj = repo.findById(id);
@@ -71,8 +73,8 @@ public class ClienteService {
 	}
 
 	public Cliente fromDTO(ClienteDTO objDto) {
-		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null);
-	}
+		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null, null);	
+		}
 
 	//Instancia o objecto encontrado no banco de dados
 	private void updateData(Cliente newObj, Cliente obj) {
@@ -88,7 +90,8 @@ public class ClienteService {
 	}
 
 	public Cliente fromDTO(ClienteNewDTO objDto) {
-		Cliente cli = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(), TipoCliente.toEnum(objDto.getTipo()));
+		Cliente cli = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(), 
+				TipoCliente.toEnum(objDto.getTipo()), pe.encode(objDto.getSenha()));
 		Cidade cid = new Cidade(objDto.getCidadeId(), null, null);
 		Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), cli, cid);
 		cli.getEnderecos().add(end);
