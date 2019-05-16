@@ -23,7 +23,7 @@ import tech.tfrabaioli.SpringApp.domain.Cliente;
 import tech.tfrabaioli.SpringApp.dto.ClienteDTO;
 import tech.tfrabaioli.SpringApp.dto.ClienteNewDTO;
 import tech.tfrabaioli.SpringApp.services.ClienteService;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 @RestController //Controlador Rest
 @RequestMapping(value="/clientes") // Nome do endpoint Rest
 public class ClienteResource {
@@ -54,12 +54,14 @@ public class ClienteResource {
 		return ResponseEntity.noContent().build();
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<ClienteDTO>> findAll() {
 		List<Cliente> list = service.findAll();
@@ -67,6 +69,7 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(listDto);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value="/page", method=RequestMethod.GET)
 	public ResponseEntity<Page<ClienteDTO>> findPage(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
