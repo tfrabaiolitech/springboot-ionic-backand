@@ -5,6 +5,7 @@ package tech.tfrabaioli.SpringApp.services;
 import org.springframework.mail.SimpleMailMessage;
 import javax.mail.internet.MimeMessage;
 
+import tech.tfrabaioli.SpringApp.domain.Cliente;
 import tech.tfrabaioli.SpringApp.domain.Pedido;
 
 public interface EmailService {
@@ -18,4 +19,6 @@ public interface EmailService {
 	void sendOrderConfirmationHtmlEmail(Pedido obj);
 	
 	void sendHtmlEmail(MimeMessage msg);
+	
+	void sendNewPasswordEmail(Cliente cliente, String newPass);
 }
