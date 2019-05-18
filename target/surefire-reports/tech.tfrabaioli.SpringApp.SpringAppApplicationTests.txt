@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: tech.tfrabaioli.SpringApp.SpringAppApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.343 s - in tech.tfrabaioli.SpringApp.SpringAppApplicationTests
